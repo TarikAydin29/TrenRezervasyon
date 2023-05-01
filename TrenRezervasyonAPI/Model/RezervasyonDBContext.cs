@@ -28,8 +28,7 @@ namespace TrenRezervasyonAPI.Model
         }
         public DbSet<Tren> Tren { get; set; }
         public DbSet<Vagon> Vagonlar { get; set; }
-        public DbSet<OturmaPlani> Oturmaplanlari { get; set; }
-        public DbSet<Rezervasyon> Rezervasyonlar { get; set; }
+        public DbSet<OturmaPlani> Oturmaplanlari { get; set; }     
         public DbSet<RezervasyonCevabi> RezervasyonCevaplari { get; set; }
     }
 }

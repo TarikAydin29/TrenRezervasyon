@@ -26,19 +26,6 @@ namespace TrenRezervasyonAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Rezervasyonlar",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    KisiSayisi = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Rezervasyonlar", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Tren",
                 columns: table => new
                 {
@@ -131,9 +118,6 @@ namespace TrenRezervasyonAPI.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Oturmaplanlari");
-
-            migrationBuilder.DropTable(
-                name: "Rezervasyonlar");
 
             migrationBuilder.DropTable(
                 name: "Vagonlar");

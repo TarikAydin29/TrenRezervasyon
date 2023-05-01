@@ -33,7 +33,7 @@ namespace TrenRezervasyonAPI.Controllers
             return Ok(result);
         }
         [HttpPost]
-        public ActionResult<Rezervasyon> Create(Rezervasyon gelenRezervasyon, string trenAdi)
+        public ActionResult<RezervasyonCevabi> Create(string trenAdi, int kisiSayisi)
         {
             try
             {
@@ -44,20 +44,20 @@ namespace TrenRezervasyonAPI.Controllers
                     OturmaPlani oturmaPlani = new OturmaPlani();
                     if (Convert.ToDouble(item.DoluKoltukAdet) / Convert.ToDouble(item.Kapasite) * 100 >= 70)
                         continue;
-                    while (Convert.ToDouble(item.DoluKoltukAdet) / Convert.ToDouble(item.Kapasite) * 100 < 70 && gelenRezervasyon.KisiSayisi > 0)
+                    while (Convert.ToDouble(item.DoluKoltukAdet) / Convert.ToDouble(item.Kapasite) * 100 < 70 && kisiSayisi > 0)
                     {
                         item.DoluKoltukAdet++;
-                        gelenRezervasyon.KisiSayisi--;
+                        kisiSayisi--;
                         oturmaPlani.VagonAdi = item.Name;
                         oturmaPlani.KisiSayisi++;
                     }
                     oturmaPlaniListe.Add(oturmaPlani);
-                    if (gelenRezervasyon.KisiSayisi == 0)
+                    if (kisiSayisi == 0)
                         break;
 
                 }
                 RezervasyonCevabi rezervasyonCevabi = new RezervasyonCevabi();
-                if (gelenRezervasyon.KisiSayisi != 0)
+                if (kisiSayisi != 0)
                 {
                     rezervasyonCevabi.RezervasyonOnayi = false;
                     rezervasyonCevabi.YerlesimAyrinti = new List<OturmaPlani>();

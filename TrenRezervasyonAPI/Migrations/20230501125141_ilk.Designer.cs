@@ -12,7 +12,7 @@ using TrenRezervasyonAPI.Model;
 namespace TrenRezervasyonAPI.Migrations
 {
     [DbContext(typeof(RezervasyonDBContext))]
-    [Migration("20230501122131_ilk")]
+    [Migration("20230501125141_ilk")]
     partial class ilk
     {
         /// <inheritdoc />
@@ -48,22 +48,6 @@ namespace TrenRezervasyonAPI.Migrations
                     b.HasIndex("RezervasyonCevabiId");
 
                     b.ToTable("Oturmaplanlari");
-                });
-
-            modelBuilder.Entity("TrenRezervasyonAPI.Model.Rezervasyon", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("KisiSayisi")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Rezervasyonlar");
                 });
 
             modelBuilder.Entity("TrenRezervasyonAPI.Model.RezervasyonCevabi", b =>

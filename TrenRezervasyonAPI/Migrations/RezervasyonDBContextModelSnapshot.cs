@@ -47,22 +47,6 @@ namespace TrenRezervasyonAPI.Migrations
                     b.ToTable("Oturmaplanlari");
                 });
 
-            modelBuilder.Entity("TrenRezervasyonAPI.Model.Rezervasyon", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("KisiSayisi")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Rezervasyonlar");
-                });
-
             modelBuilder.Entity("TrenRezervasyonAPI.Model.RezervasyonCevabi", b =>
                 {
                     b.Property<int>("Id")
