@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using Microsoft.Identity.Client;
+using System.Text.Json;
 using TrenRezervasyonAPI.Model;
 
 namespace TrenRezervasyonAPI.Controllers
@@ -32,9 +33,11 @@ namespace TrenRezervasyonAPI.Controllers
                          };
             return Ok(result);
         }
+
         [HttpPost]
-        public ActionResult<RezervasyonCevabi> Create(string trenAdi, int kisiSayisi)
+        public ActionResult<RezervasyonCevabi> Rezervasyon(string trenAdi, int kisiSayisi,bool kisilerFarkliVagonlaraYerlestirilebilir)
         {
+            
             try
             {
                 List<OturmaPlani> oturmaPlaniListe = new List<OturmaPlani>();
@@ -42,8 +45,10 @@ namespace TrenRezervasyonAPI.Controllers
                 foreach (var item in tren.Vagonlar)
                 {
                     OturmaPlani oturmaPlani = new OturmaPlani();
+
                     if (Convert.ToDouble(item.DoluKoltukAdet) / Convert.ToDouble(item.Kapasite) * 100 >= 70)
                         continue;
+
                     while (Convert.ToDouble(item.DoluKoltukAdet) / Convert.ToDouble(item.Kapasite) * 100 < 70 && kisiSayisi > 0)
                     {
                         item.DoluKoltukAdet++;
@@ -51,6 +56,8 @@ namespace TrenRezervasyonAPI.Controllers
                         oturmaPlani.VagonAdi = item.Name;
                         oturmaPlani.KisiSayisi++;
                     }
+                    if (kisilerFarkliVagonlaraYerlestirilebilir == false && kisiSayisi != 0)
+                        break;
                     oturmaPlaniListe.Add(oturmaPlani);
                     if (kisiSayisi == 0)
                         break;

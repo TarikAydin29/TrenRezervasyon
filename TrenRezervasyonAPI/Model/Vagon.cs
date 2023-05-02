@@ -12,6 +12,6 @@ namespace TrenRezervasyonAPI.Model
         public int TrenId { get; set; }
 
       
-        public virtual Tren? Tren { get; set; }
+        //public virtual Tren? Tren { get; set; }
     }
 }
