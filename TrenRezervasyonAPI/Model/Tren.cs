@@ -7,8 +7,7 @@ namespace TrenRezervasyonAPI.Model
         public Tren()
         {
             Vagonlar = new HashSet<Vagon>();
-        }
-        public int Id { get; set; }
+        }      
         public string Name { get; set; }
         public virtual ICollection<Vagon>? Vagonlar { get; set; }
     }

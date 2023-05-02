@@ -21,7 +21,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-builder.Services.AddDbContext<RezervasyonDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Conn")));
+
 
 var app = builder.Build();
 

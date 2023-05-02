@@ -11,38 +11,20 @@ namespace TrenRezervasyonAPI.Controllers
     [ApiController]
     public class RezervasyonController : ControllerBase
     {
-        private readonly RezervasyonDBContext dB;
-        public RezervasyonController(RezervasyonDBContext DB)
+
+        public RezervasyonController()
         {
-            dB = DB;
-        }
-        [HttpGet]
-        public ActionResult<Tren> GetTren()
-        {
-            if (dB.Tren == null)
-            {
-                return BadRequest();
-            }
-            var result = from t in dB.Tren
-                         join v in dB.Vagonlar on t.Id equals v.TrenId into vagon
-                         select new Tren
-                         {
-                             Id = t.Id,
-                             Name = t.Name,
-                             Vagonlar = vagon.ToList()
-                         };
-            return Ok(result);
-        }
+          
+        }       
 
         [HttpPost]
-        public ActionResult<RezervasyonCevabi> Rezervasyon(string trenAdi, int kisiSayisi,bool kisilerFarkliVagonlaraYerlestirilebilir)
-        {
-            
+        public ActionResult<RezervasyonCevabi> Rezervasyon(Tren trenGelen,int kisiSayisi, bool kisilerFarkliVagonlaraYerlestirilebilir)
+        {           
             try
             {
                 List<OturmaPlani> oturmaPlaniListe = new List<OturmaPlani>();
-                Tren tren = dB.Tren.Include(x => x.Vagonlar).Where(x => x.Name == trenAdi).FirstOrDefault();
-                foreach (var item in tren.Vagonlar)
+                
+                foreach (var item in trenGelen.Vagonlar)
                 {
                     OturmaPlani oturmaPlani = new OturmaPlani();
 
@@ -74,9 +56,7 @@ namespace TrenRezervasyonAPI.Controllers
                 {
                     rezervasyonCevabi.YerlesimAyrinti = oturmaPlaniListe;
                     rezervasyonCevabi.RezervasyonOnayi = true;
-                    dB.Update(tren);
-                    dB.AddRange(oturmaPlaniListe);
-                    dB.SaveChanges();
+                   
                     return Ok(rezervasyonCevabi);
                 }
             }
